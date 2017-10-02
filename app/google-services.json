@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "390605710725",
+    "firebase_url": "https://eat-them-all-95be8.firebaseio.com",
+    "project_id": "eat-them-all-95be8",
+    "storage_bucket": "eat-them-all-95be8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390605710725:android:aa392e516b757d62",
+        "android_client_info": {
+          "package_name": "com.example.myrog.eatthemall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390605710725-5sj1oc39fainure6qpv6ebifirpck5bs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myrog.eatthemall",
+            "certificate_hash": "a297dc5ebd7f255917dc6104a311373c977e0171"
+          }
+        },
+        {
+          "client_id": "390605710725-1fi9gggt377ghnliare9pn1ee126no6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZHh54Bsdew64UVLg10KcgSDqXaiqnWYo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390605710725-1fi9gggt377ghnliare9pn1ee126no6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

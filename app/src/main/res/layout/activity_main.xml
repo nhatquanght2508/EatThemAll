@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/photonho"
+
+    tools:context="com.example.myrog.eatthemall.MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+
+        <info.hoang8f.widget.FButton
+            android:text="Sign Up"
+            android:id="@+id/btnsignup"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:shadowColor="@android:color/black"
+            app:buttonColor="@color/btnSignup"
+            android:layout_margin="8dp"
+            app:shadowEnabled="true"
+            app:shadowHeight="5dp"
+            app:cornerRadius="7dp"
+            />
+
+        <info.hoang8f.widget.FButton
+            android:text="Sign In"
+            android:id="@+id/btnsignin"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:shadowColor="@android:color/black"
+            app:buttonColor="@color/btnSignActive"
+            android:layout_margin="8dp"
+            app:shadowEnabled="true"
+            app:shadowHeight="5dp"
+            app:cornerRadius="7dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/slogan"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/slogan"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="23sp"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
