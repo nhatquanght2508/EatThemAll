@@ -7,6 +7,7 @@ package com.example.myrog.eatthemall.Model;
 public class User {
     private String Ten;
     private String Matkhau;
+    private String Phone;
 
     public User() {
     }
@@ -14,6 +15,7 @@ public class User {
     public User(String ten, String matkhau) {
         Ten = ten;
         Matkhau = matkhau;
+
     }
 
     public String getTen() {
@@ -30,5 +32,13 @@ public class User {
 
     public void setMatkhau(String matkhau) {
         Matkhau = matkhau;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 }

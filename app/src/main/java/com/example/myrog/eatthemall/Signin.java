@@ -54,6 +54,8 @@ public class Signin extends AppCompatActivity {
                         if (dataSnapshot.child(edtphone.getText().toString()).exists()){
                             mdialog.dismiss();
                             User user = dataSnapshot.child(edtphone.getText().toString()).getValue(User.class);
+                            user.setPhone(edtphone.getText().toString());
+                            //set phone bổ sung sau , khi shipper tìm địa chỉ ko được , thì có thể gọi cho khách
                             // Điều kiện đúng để get user thông tin
                             if (user.getMatkhau().equals(edtpassword.getText().toString())) {
                                 Intent homeintent = new Intent(Signin.this,Home.class);

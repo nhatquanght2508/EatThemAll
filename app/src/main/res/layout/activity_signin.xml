@@ -18,6 +18,7 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtphone"
             android:hint="Phone Number"
+            android:text="0906394246"
             android:textColorHint="@android:color/white"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"

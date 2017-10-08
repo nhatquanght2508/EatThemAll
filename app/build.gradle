@@ -4,6 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.example.myrog.eatthemall"
         minSdkVersion 16
         targetSdkVersion 25
@@ -26,7 +27,19 @@ dependencies {
     })
     //Thêm thư viện
 
+    //Text Drawable
+    //SQLite Access
+    //Design button
+    
 
+    //Design edittext
+    //Design picture
+    //Load databaseui
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+    compile 'com.cepheuen.elegant-number-button:lib:1.0.2'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.google.firebase:firebase-core:11.2.2'
@@ -37,7 +50,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.firebaseui:firebase-ui-database:1.2.0'
-    compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'
