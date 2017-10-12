@@ -9,4 +9,16 @@
     
     <color name="overlayBackground">#7f333639</color>
     <color name="overlayActionBar">#0e0d0e</color>
+
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="grey_dark">#545454</color>
+    <color name="txt_color_change">#ee212121</color>
+    <color name="et_default_color_text">#a0a0a0</color>
+    <color name="et_default_color_rule">#e7e7e7</color>
+    <color name="et_engagged_color_rule">@color/colorPrimary</color>
+    <color name="border_toolbar">#e7e7e7</color>
+    <color name="black">#000000</color>
+    <color name="smoke">#919090</color>
+    <color name="pin_normal">#6B767E</color>
 </resources>

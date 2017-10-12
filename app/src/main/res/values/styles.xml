@@ -12,6 +12,20 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    
+
+    <style name="text_input_layout_style" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+    <style name="edit_text_style">
+        <item name="android:textColor">@color/txt_color_change</item>
+        <item name="android:textColorHint">@color/et_default_color_text</item>
+        <item name="android:textSize">15sp</item>
+        <item name="colorControlNormal">@color/et_default_color_rule</item>
+        <item name="colorControlActivated">@color/et_engagged_color_rule</item>
+    </style>
+
 
 </resources>
