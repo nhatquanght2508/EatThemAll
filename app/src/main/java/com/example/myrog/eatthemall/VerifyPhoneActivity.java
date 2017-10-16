@@ -107,7 +107,7 @@ public class VerifyPhoneActivity extends AppCompatActivity{
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
                 Log.d(TAG, "onVerificationCompleted:" + credential);
-                signInWithPhoneAuthCredential(credential);
+                //signInWithPhoneAuthCredential(credential);
             }
 
             @Override
