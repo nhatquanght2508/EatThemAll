@@ -10,10 +10,15 @@
     <string name="text_back">Trở lại</string>
     <string name="text_phone">Số điện thoại</string>
     <string name="text_login">Đăng nhập</string>
-   <string name="text_or_login_with"> hoặc đăng nhập với</string>
+    <string name="text_or_login_with"> hoặc đăng nhập với</string>
     <string name="text_invalid_phone_number">Số điện thoại không hợp lệ</string>
     <string name="text_invalid_code">Mã xác nhận không hợp lệ</string>
     <string name="text_resend_code">Gửi lại mã xác nhận</string>
     <string name="text_input_six_letters">Vui lòng nhập mã xác nhận gốm 6 ký tự</string>
+    <string name="place_autocomplete_search_hint">Tìm kiếm</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

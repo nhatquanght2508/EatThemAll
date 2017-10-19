@@ -21,4 +21,6 @@
     <color name="black">#000000</color>
     <color name="smoke">#919090</color>
     <color name="pin_normal">#6B767E</color>
+    <color name="red">#ff0008</color>
+    <color name="cardview_shadow_color">#bb060606</color>
 </resources>

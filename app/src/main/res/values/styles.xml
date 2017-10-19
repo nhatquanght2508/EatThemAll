@@ -27,5 +27,14 @@
         <item name="colorControlActivated">@color/et_engagged_color_rule</item>
     </style>
 
+    <style name="MyTabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+    </style>
+
+    <style name="MyTabTextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="textAllCaps">true</item>
+    </style>
 
 </resources>
