@@ -196,8 +196,8 @@ public class LocationFragment extends Fragment implements
             }
             // Selecting the first object buffer.
             final Place place = places.get(0);
-            CharSequence attributions = places.getAttributions();
-
+            LatLng queriedLocation = place.getLatLng();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(queriedLocation, 12));
 
         }
     };
@@ -206,14 +206,15 @@ public class LocationFragment extends Fragment implements
         BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources()
                 .getDrawable(R.drawable.marker_my_location);
         Bitmap bitmap = bitmapDrawable.getBitmap();
-        smallMarker = Bitmap.createScaledBitmap(bitmap, 120, 120, false);
+        smallMarker = Bitmap.createScaledBitmap(bitmap, 60, 60, false);
 
     }
+
     public Bitmap makeSmallMarker(int markerId) {
         BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources()
                 .getDrawable(markerId);
         Bitmap bitmap = bitmapDrawable.getBitmap();
-        return Bitmap.createScaledBitmap(bitmap, 120, 120, false);
+        return Bitmap.createScaledBitmap(bitmap, 75, 120, false);
 
     }
 
@@ -267,8 +268,7 @@ public class LocationFragment extends Fragment implements
                 .position(latLng)
                 .title("Title")
                 .snippet("5")
-                .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource
-                        (getResources(), R.drawable.marker_employee))));
+                .icon(BitmapDescriptorFactory.fromBitmap(makeSmallMarker(R.drawable.marker_employee))));
 
 //        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 //            @Override
@@ -313,8 +313,6 @@ public class LocationFragment extends Fragment implements
 
         setCurentLocationMarker(location);
     }
-
-
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
