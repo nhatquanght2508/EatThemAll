@@ -8,10 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.myrog.eatthemall.Interface.ItemClickListener;
-import com.example.myrog.eatthemall.Model.Category;
 import com.example.myrog.eatthemall.Model.Food;
 import com.example.myrog.eatthemall.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -25,7 +23,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class FoodList extends AppCompatActivity {
 
@@ -68,7 +65,7 @@ public class FoodList extends AppCompatActivity {
             loadListFood(categoryId);
         }
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.seachbar);
-        materialSearchBar.setHint("Enter your food");
+        materialSearchBar.setHint("Tìm kiếm");
         LoadSuggest();
 
         materialSearchBar.setLastSuggestions(suggestlist);
@@ -133,6 +130,13 @@ public class FoodList extends AppCompatActivity {
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
                 viewHolder.food_name.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.food_img);
+                viewHolder.txtPrice.setText(model.getPrice());
+                viewHolder.btnCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
 
                 final  Food local = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
@@ -176,6 +180,13 @@ public class FoodList extends AppCompatActivity {
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
                 viewHolder.food_name.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.food_img);
+                viewHolder.txtPrice.setText(model.getPrice());
+                viewHolder.btnCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
 
                 final  Food local = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {

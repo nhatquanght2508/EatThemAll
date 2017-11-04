@@ -1,5 +1,6 @@
 package com.example.myrog.eatthemall.ViewHolder;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,8 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public TextView food_name;
     public ImageView food_img;
+    public TextView txtPrice;
+    public FloatingActionButton btnCart;
 
     private ItemClickListener itemClickListener;
 
@@ -28,7 +31,10 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         food_name = (TextView) itemView.findViewById(R.id.food_name);
         food_img = (ImageView) itemView.findViewById(R.id.food_image);
+        txtPrice = (TextView) itemView.findViewById(R.id.txt_price);
+        btnCart = (FloatingActionButton) itemView.findViewById(R.id.btn_cart);
 
+        btnCart.setOnClickListener(this);
         itemView.setOnClickListener(this);
     }
 

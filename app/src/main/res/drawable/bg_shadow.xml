@@ -4,8 +4,8 @@
     <item android:top="20dp">
         <shape>
             <solid android:color="#000000" />
-            <gradient android:startColor="@color/black"
-                android:centerColor="@color/transparent"
+            <gradient android:startColor="#9000"
+                android:centerColor="#3000"
                 android:endColor="@color/transparent"
                 android:angle="90"
                 />
