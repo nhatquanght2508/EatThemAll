@@ -1,5 +1,6 @@
 package com.example.myrog.eatthemall;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +23,8 @@ public class DashboardActivity extends AppCompatActivity {
     private LocationFragment locationFragment;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,22 @@ public class DashboardActivity extends AppCompatActivity {
         categoryFragment = categoryFragment.newInstance();
         locationFragment = locationFragment.newInstance();
         initView();
+        configToolbar();
 
+    }
+
+    private void configToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar_dashboard);
+        this.setSupportActionBar(toolbar);
+
+        ImageView ivCart = (ImageView) toolbar.findViewById(R.id.ivCart);
+        ivCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cartIntent = new Intent(DashboardActivity.this,CartActivity.class);
+                startActivity(cartIntent);
+            }
+        });
     }
 
     private void initView() {

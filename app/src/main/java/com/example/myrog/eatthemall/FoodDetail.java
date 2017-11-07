@@ -63,7 +63,7 @@ public class FoodDetail extends AppCompatActivity {
                         currentFood.getName(),
                         numberButton.getNumber(),
                         currentFood.getPrice(),
-                        currentFood.getDiscount() 
+                        currentFood.getDiscount()
 
                 ));
                 Toast.makeText(FoodDetail.this, "Đã thêm"+ currentFood.getName()+ "vào giỏ hàng", Toast.LENGTH_SHORT).show();

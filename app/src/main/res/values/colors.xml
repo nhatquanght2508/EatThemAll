@@ -23,4 +23,5 @@
     <color name="pin_normal">#6B767E</color>
     <color name="red">#ff0008</color>
     <color name="cardview_shadow_color">#bb060606</color>
+    <color name="pink">#f211be</color>
 </resources>

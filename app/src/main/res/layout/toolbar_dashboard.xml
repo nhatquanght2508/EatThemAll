@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="47dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eat Them All"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="26dp"
-            android:layout_gravity="center"/>
-        <!--<TextView-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eat Them All"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"/>
+            <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:text=" ALL"-->
@@ -26,51 +36,55 @@
             <!--android:textSize="18sp"-->
             <!--android:textStyle="bold"-->
             <!--android:layout_gravity="center"/>-->
-    </LinearLayout>
+        </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_cart"
-            android:scaleType="fitXY"
-            android:id="@+id/ivCart"
-            android:layout_centerInParent="true"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_cart"
+                android:scaleType="fitXY"
+                android:id="@+id/ivCart"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_circle_red"
+                android:gravity="center"
+                android:id="@+id/txtNumberCart"
+                android:layout_toLeftOf="@+id/ivCart"
+                android:layout_marginTop="8dp"/>
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            android:text="Tổng"
             android:textColor="@color/white"
-            android:background="@drawable/bg_circle_red"
-            android:gravity="center"
-            android:id="@+id/txtNumberCart"
-            android:layout_toLeftOf="@+id/ivCart"
-            android:layout_marginTop="8dp"/>
-    </RelativeLayout>
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tổng"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="4dp"
-        android:layout_gravity="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0đ"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="4dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="4dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0đ"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"/>
+
+    </LinearLayout>
 
 
-</LinearLayout>
+
+</android.support.v7.widget.Toolbar>

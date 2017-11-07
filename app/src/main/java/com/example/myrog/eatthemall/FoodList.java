@@ -26,6 +26,7 @@ import com.example.myrog.eatthemall.Interface.ItemClickListener;
 import com.example.myrog.eatthemall.Model.Food;
 import com.example.myrog.eatthemall.Model.Order;
 import com.example.myrog.eatthemall.ViewHolder.FoodViewHolder;
+import com.example.myrog.eatthemall.manager.CartManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -150,13 +151,20 @@ public class FoodList extends AppCompatActivity {
                 viewHolder.btnCart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new Database(getBaseContext()).addtoCart(new Order(
+//                        new Database(getBaseContext()).addtoCart(new Order(
+//                                adapter.getRef(position).getKey(),
+//                                model.getName(),
+//                                "1",
+//                                model.getPrice(),
+//                                model.getDiscount()
+//
+//                        ));
+                        CartManager.getInstance().addOrder(new Order(
                                 adapter.getRef(position).getKey(),
                                 model.getName(),
                                 "1",
                                 model.getPrice(),
                                 model.getDiscount()
-
                         ));
                         Snackbar.make(relativeLayout, "Đã thêm 1 "+ model.getName()+ " vào giỏ hàng",
                                 Snackbar.LENGTH_SHORT)
@@ -211,13 +219,20 @@ public class FoodList extends AppCompatActivity {
                 viewHolder.btnCart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new Database(getBaseContext()).addtoCart(new Order(
+//                        new Database(getBaseContext()).addtoCart(new Order(
+//                                adapter.getRef(position).getKey(),
+//                                model.getName(),
+//                                "1",
+//                                model.getPrice(),
+//                                model.getDiscount()
+//
+//                        ));
+                        CartManager.getInstance().addOrder(new Order(
                                 adapter.getRef(position).getKey(),
                                 model.getName(),
                                 "1",
                                 model.getPrice(),
                                 model.getDiscount()
-
                         ));
                         Snackbar.make(relativeLayout, "Đã thêm 1 "+ model.getName()+ " vào giỏ hàng",
                                 Snackbar.LENGTH_SHORT)
@@ -283,13 +298,20 @@ public class FoodList extends AppCompatActivity {
         btncart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Database(getBaseContext()).addtoCart(new Order(
+//                new Database(getBaseContext()).addtoCart(new Order(
+//                        foodId,
+//                        currentFood.getName(),
+//                        numberButton.getNumber(),
+//                        currentFood.getPrice(),
+//                        currentFood.getDiscount()
+//
+//                ));
+                CartManager.getInstance().addOrder(new Order(
                         foodId,
                         currentFood.getName(),
                         numberButton.getNumber(),
                         currentFood.getPrice(),
                         currentFood.getDiscount()
-
                 ));
                 Snackbar.make(relativeLayout, "Đã thêm " + numberButton.getNumber() + " " +
                                 currentFood.getName()+ " vào giỏ hàng",
