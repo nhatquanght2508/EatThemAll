@@ -6,10 +6,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/mapFragmentContainer"
         android:layout_alignParentTop="true"
-        android:layout_height="wrap_content">
-    </RelativeLayout>
+        android:layout_above="@+id/txt_address_list"/>
 
     <LinearLayout
         android:id="@+id/place_autocomplete_fragment"
@@ -20,13 +20,13 @@
         android:layout_alignTop="@+id/mapFragmentContainer"
         android:layout_marginTop="10dp"
         android:padding="16dp">
+
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/places_ic_search"
             android:paddingRight="16dp"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
         <AutoCompleteTextView
             android:layout_width="0dp"
@@ -46,8 +46,8 @@
             android:id="@+id/imgPlaceClear"
             android:src="@drawable/places_ic_clear"
             android:layout_gravity="center"/>
-    </LinearLayout>
 
+    </LinearLayout>
 
     <ImageView
         android:layout_width="35dp"
@@ -58,5 +58,40 @@
         android:layout_marginRight="10dp"
         android:layout_alignBottom="@+id/mapFragmentContainer"
         android:layout_alignRight="@+id/mapFragmentContainer"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/et_default_color_rule"
+        android:id="@+id/txt_address_list"
+        android:text="Danh sách cửa hàng"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:padding="3dp"
+        android:layout_marginLeft="7dp"
+        android:layout_above="@+id/rv_store"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:id="@+id/rv_store"
+        android:background="@color/white"
+        android:layout_above="@+id/btn_closest_store"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_closest_store"
+        android:text="Tìm cửa hàng gần nhất"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_dark_green_round"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

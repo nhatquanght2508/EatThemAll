@@ -1,9 +1,8 @@
 package com.example.myrog.eatthemall;
 
-import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -17,17 +16,26 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.myrog.eatthemall.Interface.ItemClickListener;
+import com.example.myrog.eatthemall.Model.Store;
 import com.example.myrog.eatthemall.Utils.DataParser;
 import com.example.myrog.eatthemall.ViewHolder.PlaceAutoCompleteAdapter;
+import com.example.myrog.eatthemall.ViewHolder.StoreViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -49,7 +57,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
 
@@ -78,9 +89,9 @@ public class LocationFragment extends Fragment implements
     private Marker currentLocationMarker;
     private Bitmap smallMarker;
     public static final String MAP_FRAGMENT_TAG = "mapFragment";
-    ArrayList<LatLng> MarkerPoints;
 
     private ImageView btnLocation;
+    private Button btnClosestStore;
     private AutoCompleteTextView mAutocompleteTextView;
     private ImageView mPlaceClear;
     private PlaceAutoCompleteAdapter mPlaceAdapter;
@@ -92,6 +103,14 @@ public class LocationFragment extends Fragment implements
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     public static final long INTERVAL_TIME_MILISECOND=1000;
+    public static final int REQUEST_PHONE_CALL= 1;
+
+    private FirebaseDatabase database;
+    private DatabaseReference store;
+    private RecyclerView recyclerView;
+    private FirebaseRecyclerAdapter<Store,StoreViewHolder> adapter;
+    private ArrayList<Store> storeList;
+    Polyline polyline;
 
     public LocationFragment() {
         // Required empty public constructor
@@ -131,7 +150,34 @@ public class LocationFragment extends Fragment implements
         connectAPIClient();
         initLocationButton(view);
         initSearchView(view);
+        loadStore(view);
+        configClosestStoreButton(view);
         return view;
+    }
+
+    private void configClosestStoreButton(View view) {
+        btnClosestStore = (Button) view.findViewById(R.id.btn_closest_store);
+        btnClosestStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Store store = getClosestStore();
+                // Getting URL to the Google Directions API
+                String url = getUrl(new LatLng(mLastLocation.getLatitude(),
+                                mLastLocation.getLongitude()),
+                        new LatLng(store.getLatitude(),
+                                store.getLongitude()));
+                Log.d("onMapClick", url.toString());
+                FetchUrl FetchUrl = new FetchUrl();
+
+                // Start downloading json data from Google Directions API
+                FetchUrl.execute(url);
+                //move map camera
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(
+                        store.getLatitude(),
+                        store.getLongitude())));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+            }
+        });
     }
 
     @Override
@@ -214,7 +260,7 @@ public class LocationFragment extends Fragment implements
             // Selecting the first object buffer.
             final Place place = places.get(0);
             LatLng queriedLocation = place.getLatLng();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(queriedLocation, 12));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(queriedLocation, 18));
 
         }
     };
@@ -269,7 +315,9 @@ public class LocationFragment extends Fragment implements
     }
 
     private void setCurentLocationMarker(Location location) {
-
+        if(currentLocationMarker != null){
+            currentLocationMarker.remove();
+        }
         currentLocationMarker = mMap.addMarker(new MarkerOptions()
                 .flat(true)
                 .icon(BitmapDescriptorFactory
@@ -470,15 +518,18 @@ public class LocationFragment extends Fragment implements
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(10);
-                lineOptions.color(Color.RED);
+                lineOptions.color(getResources().getColor(R.color.colorPrimary));
 
                 Log.d("onPostExecute","onPostExecute lineoptions decoded");
 
             }
 
             // Drawing polyline in the Google Map for the i-th route
+            if(polyline != null){
+                polyline.remove();
+            }
             if(lineOptions != null) {
-                mMap.addPolyline(lineOptions);
+                polyline = mMap.addPolyline(lineOptions);
             }
             else {
                 Log.d("onPostExecute","without Polylines drawn");
@@ -486,73 +537,152 @@ public class LocationFragment extends Fragment implements
         }
     }
 
+    private void loadStore(View view){
+        database = FirebaseDatabase.getInstance();
+        store = database.getReference("Store");
+        storeList = new ArrayList<>();
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_store);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        adapter = new FirebaseRecyclerAdapter<Store, StoreViewHolder>(Store.class,
+                R.layout.item_store, StoreViewHolder.class,store) {
+            @Override
+            protected void populateViewHolder(StoreViewHolder viewHolder, final Store model, int position) {
+                viewHolder.txtAddress.setText(model.getAddress());
+                viewHolder.imgCall.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!TextUtils.isEmpty(model.getPhone())) {
+                            Intent callIntent = new Intent(Intent.ACTION_CALL);
+                            callIntent.setData(Uri.parse("tel:" + model.getPhone()));
+                            if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CALL_PHONE)
+                                    != PackageManager.PERMISSION_GRANTED)
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{android.Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+                            else
+                                getActivity().startActivity(callIntent);
+                        }
+                    }
+                });
+
+                viewHolder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        // Getting URL to the Google Directions API
+                        String url = getUrl(new LatLng(mLastLocation.getLatitude(),
+                                        mLastLocation.getLongitude()),
+                                new LatLng(model.getLatitude(),
+                                        model.getLongitude()));
+                        Log.d("onMapClick", url.toString());
+                        FetchUrl FetchUrl = new FetchUrl();
+
+                        // Start downloading json data from Google Directions API
+                        FetchUrl.execute(url);
+                        //move map camera
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(
+                                model.getLatitude(),
+                                model.getLongitude())));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                    }
+                });
+                storeList.add(position, model);
+                setEmployeeMarker(new LatLng(model.getLatitude(), model.getLongitude()));
+            }
+        };
+
+        recyclerView.setAdapter(adapter);
+    }
+
+    private Store getClosestStore (){
+        Store closestStore = new Store();
+        float smallestDistance = -1;
+        float results;
+        Location location = new Location("");
+        for(Store store : storeList){
+//            Location.distanceBetween(mLastLocation.getLatitude(),
+//                    mLastLocation.getLongitude(),
+//                    store.getLatitude(),
+//                    store.getLongitude(),
+//                    results);
+
+            location.setLatitude(store.getLatitude());
+            location.setLongitude(store.getLongitude());
+            results = mLastLocation.distanceTo(location);
+            if(smallestDistance == -1 || results < smallestDistance){
+                closestStore = store;
+                smallestDistance = results;
+            }
+        }
+        return closestStore;
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        MarkerPoints = new ArrayList<>();
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setZoomControlsEnabled(false);
         // Setting onclick event listener for the map
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-
-            @Override
-            public void onMapClick(LatLng point) {
-
-                // Already two locations
-                if (MarkerPoints.size() > 1) {
-                    MarkerPoints.clear();
-                    mMap.clear();
-                }
-
-                // Adding new item to the ArrayList
-                MarkerPoints.add(point);
-
-                // Creating MarkerOptions
-                MarkerOptions options = new MarkerOptions();
-
-                // Setting the position of the marker
-                options.position(point);
-
-                /**
-                 * For the start location, the color of marker is GREEN and
-                 * for the end location, the color of marker is RED.
-                 */
-                if (MarkerPoints.size() == 1) {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                } else if (MarkerPoints.size() == 2) {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                }
-
-
-                // Add new marker to the Google Map Android API V2
-                mMap.addMarker(options);
-
-                // Checks, whether start and end locations are captured
-                if (MarkerPoints.size() >= 2) {
-                    LatLng origin = MarkerPoints.get(0);
-                    LatLng dest = MarkerPoints.get(1);
-
-                    // Getting URL to the Google Directions API
-                    String url = getUrl(origin, dest);
-                    Log.d("onMapClick", url.toString());
-                    FetchUrl FetchUrl = new FetchUrl();
-
-                    // Start downloading json data from Google Directions API
-                    FetchUrl.execute(url);
-                    //move map camera
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-                }
-
-            }
-        });
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//
+//            @Override
+//            public void onMapClick(LatLng point) {
+//
+//                // Already two locations
+//                if (MarkerPoints.size() > 1) {
+//                    MarkerPoints.clear();
+//                    mMap.clear();
+//                }
+//
+//                // Adding new item to the ArrayList
+//                MarkerPoints.add(point);
+//
+//                // Creating MarkerOptions
+//                MarkerOptions options = new MarkerOptions();
+//
+//                // Setting the position of the marker
+//                options.position(point);
+//
+//                /**
+//                 * For the start location, the color of marker is GREEN and
+//                 * for the end location, the color of marker is RED.
+//                 */
+//                if (MarkerPoints.size() == 1) {
+//                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+//                } else if (MarkerPoints.size() == 2) {
+//                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//                }
+//
+//
+//                // Add new marker to the Google Map Android API V2
+//                mMap.addMarker(options);
+//
+//                // Checks, whether start and end locations are captured
+//                if (MarkerPoints.size() >= 2) {
+//                    LatLng origin = MarkerPoints.get(0);
+//                    LatLng dest = MarkerPoints.get(1);
+//
+//                    // Getting URL to the Google Directions API
+//                    String url = getUrl(origin, dest);
+//                    Log.d("onMapClick", url.toString());
+//                    FetchUrl FetchUrl = new FetchUrl();
+//
+//                    // Start downloading json data from Google Directions API
+//                    FetchUrl.execute(url);
+//                    //move map camera
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
+//                    mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+//                }
+//
+//            }
+//        });
     }
 
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = new Location(location);
-        if (currentLocationMarker != null) {
-            currentLocationMarker.remove();
-        }
-
         setCurentLocationMarker(location);
     }
 
@@ -596,6 +726,4 @@ public class LocationFragment extends Fragment implements
     public boolean onMarkerClick(Marker marker) {
         return false;
     }
-
-
 }
