@@ -13,9 +13,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.myrog.eatthemall.manager.CartManager;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -34,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
         categoryFragment = categoryFragment.newInstance();
         locationFragment = locationFragment.newInstance();
         initView();
-        configToolbar();
+        //configToolbar();
 
     }
 
@@ -50,6 +55,15 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(cartIntent);
             }
         });
+
+        Locale locale = new Locale("vi","VN");
+        NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+        TextView total = (TextView) toolbar.findViewById(R.id.txt_total);
+        total.setText(format.format(CartManager.getInstance().getTotal()));
+
+        TextView txtNumberCart = (TextView) toolbar.findViewById(R.id.txtNumberCart);
+        txtNumberCart.setText(String.valueOf(CartManager.getInstance().getCount()));
+
     }
 
     private void initView() {
@@ -103,6 +117,12 @@ public class DashboardActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        configToolbar();
+    }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
 
@@ -124,17 +144,17 @@ public class DashboardActivity extends AppCompatActivity {
             mFragmentList.add(fragment);
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "THỨC ĂN";
-                case 1:
-                    return "ĐỊA ĐIỂM";
-                case 2:
-                    return "TÀI KHOẢN";
-            }
-            return mFragmentList.get(position).getClass().getSimpleName();
-        }
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            switch (position) {
+//                case 0:
+//                    return "THỨC ĂN";
+//                case 1:
+//                    return "ĐỊA ĐIỂM";
+//                case 2:
+//                    return "TÀI KHOẢN";
+//            }
+//            return mFragmentList.get(position).getClass().getSimpleName();
+//        }
     }
 }

@@ -12,7 +12,7 @@
         android:id="@+id/tabs"
         style="@style/MyTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_dashboard"
         app:tabGravity="fill"
         app:tabMode="fixed"
@@ -26,22 +26,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/tabItem0"
-            android:icon="@drawable/ic_food"
-            android:text="Thức Ăn" />
+            android:icon="@drawable/ic_food" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/tabItem1"
-            android:icon="@drawable/ic_location"
-            android:text="Địa Điểm"/>
+            android:icon="@drawable/ic_location" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/tabItem2"
-            android:icon="@drawable/ic_person"
-            android:text="Tài khoản" />
+            android:icon="@drawable/ic_person" />
 
     </android.support.design.widget.TabLayout>
 

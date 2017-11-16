@@ -40,26 +40,28 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp">
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:id="@+id/ivCart"
                 android:src="@drawable/ic_cart"
                 android:scaleType="fitXY"
-                android:id="@+id/ivCart"
                 android:layout_centerInParent="true"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/txtNumberCart"
                 android:text="1"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:background="@drawable/bg_circle_red"
                 android:gravity="center"
-                android:id="@+id/txtNumberCart"
-                android:layout_toLeftOf="@+id/ivCart"
-                android:layout_marginTop="8dp"/>
+                android:layout_toRightOf="@+id/ivCart"
+                android:layout_marginTop="8dp"
+                android:padding="3dp"/>
         </RelativeLayout>
 
         <TextView
@@ -75,6 +77,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/txt_total"
             android:text="0đ"
             android:textColor="@color/white"
             android:textSize="15sp"

@@ -62,22 +62,29 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/et_default_color_rule"
+        android:background="#eeeeee"
         android:id="@+id/txt_address_list"
         android:text="Danh sách cửa hàng"
         android:textSize="16sp"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         android:padding="3dp"
-        android:layout_marginLeft="7dp"
+        android:paddingLeft="8dp"
         android:layout_above="@+id/rv_store"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="155dp"
         android:id="@+id/rv_store"
         android:background="@color/white"
-        android:layout_above="@+id/btn_closest_store"/>
+        android:layout_above="@+id/btn_closest_store"
+        android:layout_marginBottom="1.5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_above="@id/btn_closest_store"
+        android:background="#A9d440"/>
 
     <Button
         android:layout_width="match_parent"
@@ -87,11 +94,7 @@
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textAllCaps="false"
-        android:background="@drawable/bg_dark_green_round"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="3dp"
+        android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

@@ -76,7 +76,7 @@ public class CartManager {
         for(Order order : list){
             total += Long.parseLong(order.getPrice()) * Integer.parseInt(order.getQuantity());
         }
-        return String.valueOf(total);
+        return String.valueOf(total) + " đ";
     }
 
     public long getTotal(){
@@ -85,6 +85,10 @@ public class CartManager {
             total += Long.parseLong(order.getPrice()) * Integer.parseInt(order.getQuantity());
         }
         return total;
+    }
+
+    public int getCount(){
+        return list.size();
     }
 
 }

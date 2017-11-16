@@ -3,7 +3,6 @@ package com.example.myrog.eatthemall;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
@@ -175,7 +174,7 @@ public class LocationFragment extends Fragment implements
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(
                         store.getLatitude(),
                         store.getLongitude())));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             }
         });
     }
@@ -260,7 +259,7 @@ public class LocationFragment extends Fragment implements
             // Selecting the first object buffer.
             final Place place = places.get(0);
             LatLng queriedLocation = place.getLatLng();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(queriedLocation, 18));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(queriedLocation, 15));
 
         }
     };
@@ -299,7 +298,7 @@ public class LocationFragment extends Fragment implements
             if (mLastLocation != null) {
                 LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
                         .getLongitude());
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
 
                 setCurentLocationMarker(mLastLocation);
             }
@@ -310,7 +309,7 @@ public class LocationFragment extends Fragment implements
         if (mLastLocation != null) {
             LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
                     .getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
         }
     }
 
@@ -585,7 +584,7 @@ public class LocationFragment extends Fragment implements
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(
                                 model.getLatitude(),
                                 model.getLongitude())));
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                     }
                 });
                 storeList.add(position, model);
@@ -691,9 +690,9 @@ public class LocationFragment extends Fragment implements
         setUpMap();
         //update current location
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(INTERVAL_TIME_MILISECOND * 5);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(INTERVAL_TIME_MILISECOND * 35);
+        mLocationRequest.setFastestInterval(1000*35);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(getContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
