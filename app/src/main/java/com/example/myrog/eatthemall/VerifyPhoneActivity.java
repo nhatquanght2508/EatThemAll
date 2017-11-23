@@ -138,7 +138,7 @@ public class VerifyPhoneActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
-                            startActivity(new Intent(VerifyPhoneActivity.this, MainActivity.class));
+                            startActivity(new Intent(VerifyPhoneActivity.this, DashboardActivity.class));
                             finish();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

@@ -26,6 +26,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private CategoryFragment categoryFragment;
     private LocationFragment locationFragment;
+    private SettingFragment settingFragment;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
@@ -38,6 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         categoryFragment = categoryFragment.newInstance();
         locationFragment = locationFragment.newInstance();
+        settingFragment = settingFragment.newInstance();
         initView();
         //configToolbar();
 
@@ -92,7 +94,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void setupTabItem(TabLayout tabLayout){
         int[] tabIcons = {
-                R.drawable.ic_food,
+                R.drawable.ic_food_green,
                 R.drawable.ic_location,
                 R.drawable.ic_person
         };
@@ -101,11 +103,12 @@ public class DashboardActivity extends AppCompatActivity {
         for (int i=0; i<tabLayout.getTabCount(); i++){
             TabLayout.Tab tabCall = tabLayout.getTabAt(i);
             tabCall.setIcon(tabIcons[i]);
-            tabCall.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            tabCall.getIcon().setColorFilter(Color.argb(255,0,77,64),
+                    PorterDuff.Mode.SRC_IN);
             if(i==0)
                 tabCall.getIcon().setAlpha(255);
             else
-                tabCall.getIcon().setAlpha(80);
+                tabCall.getIcon().setAlpha(180);
         }
 
     }
@@ -114,6 +117,7 @@ public class DashboardActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(categoryFragment);
         adapter.addFragment(locationFragment);
+        adapter.addFragment(settingFragment);
         viewPager.setAdapter(adapter);
     }
 

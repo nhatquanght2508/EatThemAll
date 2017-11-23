@@ -155,10 +155,14 @@ public class LocationFragment extends Fragment implements
     }
 
     private void configClosestStoreButton(View view) {
+
         btnClosestStore = (Button) view.findViewById(R.id.btn_closest_store);
         btnClosestStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if( mLastLocation == null){
+                    return;
+                }
                 Store store = getClosestStore();
                 // Getting URL to the Google Directions API
                 String url = getUrl(new LatLng(mLastLocation.getLatitude(),

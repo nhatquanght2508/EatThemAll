@@ -18,15 +18,15 @@
         app:tabMode="fixed"
         app:tabTextColor="@color/white"
         app:tabSelectedTextColor="@color/white"
-        android:background="@color/colorPrimary"
-        app:tabIndicatorColor="@color/white"
+        android:background="#eeeeee"
+        app:tabIndicatorColor="@color/colorPrimary"
         app:tabIndicatorHeight="2dp">
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/tabItem0"
-            android:icon="@drawable/ic_food" />
+            android:icon="@drawable/ic_food_green" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
