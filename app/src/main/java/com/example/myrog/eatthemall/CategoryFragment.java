@@ -61,7 +61,7 @@ public class CategoryFragment extends Fragment {
         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class,
                 R.layout.menu_item,MenuViewHolder.class,category ) {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
+            protected void populateViewHolder(final MenuViewHolder viewHolder, Category model, int position) {
                 viewHolder.txtmenuname.setText(model.getName());
                 Picasso.with(getActivity().getBaseContext()).load(model.getImage())
                         .into(viewHolder.imageView);
@@ -73,7 +73,7 @@ public class CategoryFragment extends Fragment {
                         Intent foodlist = new Intent(getActivity(),FoodList.class);
 
                         // CategoryID là khóa nên chỉ cần lấy id của category
-                        foodlist.putExtra(Constants.KEY_FOODLIST,adapter.getRef(position).getKey());
+                        foodlist.putExtra(Constants.KEY_FOODLIST,adapter.getRef(viewHolder.getAdapterPosition()).getKey());
                         startActivity(foodlist);
                     }
                 });

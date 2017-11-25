@@ -2,6 +2,7 @@ package com.example.myrog.eatthemall;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.StringSearch;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -62,7 +63,18 @@ public class SettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
         initControl(view);
         configInfoUser();
+        configOtherButton();
         return view;
+    }
+
+    private void configOtherButton() {
+        cvFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foodlist = new Intent(getActivity(),FavoriteFoodActivity.class);
+                startActivity(foodlist);
+            }
+        });
     }
 
     private void initControl(View view) {

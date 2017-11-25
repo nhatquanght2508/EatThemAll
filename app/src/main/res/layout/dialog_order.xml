@@ -73,7 +73,7 @@
             android:text="Hủy"
             android:textSize="15sp"
             android:textColor="@color/colorPrimary"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="25dp"
             android:gravity="center"/>
 
     </LinearLayout>

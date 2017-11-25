@@ -23,7 +23,6 @@ import com.example.myrog.eatthemall.Model.Food;
 import com.example.myrog.eatthemall.Model.Order;
 import com.example.myrog.eatthemall.ViewHolder.FoodViewHolder;
 import com.example.myrog.eatthemall.manager.CartManager;
-import com.example.myrog.eatthemall.manager.UserManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,8 +36,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodList extends AppCompatActivity {
-
+public class FavoriteFoodActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -58,7 +56,7 @@ public class FoodList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_list);
+        setContentView(R.layout.activity_favorite_food);
 
         //Load Firebase
         database = FirebaseDatabase.getInstance();
@@ -76,9 +74,9 @@ public class FoodList extends AppCompatActivity {
         if (getIntent() != null){
             categoryId = getIntent().getStringExtra("CategoryId");
         }
-        if (!categoryId.isEmpty() && categoryId != null){
+        //if (!categoryId.isEmpty() && categoryId != null){
             loadListFood(categoryId);
-        }
+        //}
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.seachbar);
         materialSearchBar.setHint("Tìm kiếm");
         LoadSuggest();
@@ -169,7 +167,7 @@ public class FoodList extends AppCompatActivity {
                                 .show();
                     }
                 });
-
+                viewHolder.btnFav.setImageResource(R.drawable.ic_delete_red);
                 viewHolder.btnFav.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -178,8 +176,8 @@ public class FoodList extends AppCompatActivity {
                                 .child(adapter.getRef(viewHolder.getAdapterPosition()).getKey())
                                 .child("favorites")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(true);
-                        Snackbar.make(relativeLayout, "Đã thêm "+ model.getName()+ " vào danh sách yêu thích",
+                                .removeValue();
+                        Snackbar.make(relativeLayout, "Đã xóa "+ model.getName(),
                                 Snackbar.LENGTH_SHORT)
                                 .show();
                     }
@@ -203,7 +201,8 @@ public class FoodList extends AppCompatActivity {
     }
 
     private void LoadSuggest() {
-        foodlist.orderByChild("menuId").equalTo(categoryId).addValueEventListener(new ValueEventListener() {
+        foodlist.orderByChild("favorites/"+FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .equalTo(true).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot:dataSnapshot.getChildren()){
@@ -223,7 +222,8 @@ public class FoodList extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class,
                 R.layout.food_item,
                 FoodViewHolder.class,
-                foodlist.orderByChild("menuId").equalTo(categoryId)) { //   Select * from Foods where Menuid =
+                foodlist.orderByChild("favorites/"+FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .equalTo(true)) {
             @Override
             protected void populateViewHolder(final FoodViewHolder viewHolder, final Food model, final int position) {
                 viewHolder.food_name.setText(model.getName());
@@ -241,7 +241,7 @@ public class FoodList extends AppCompatActivity {
 //
 //                        ));
                         CartManager.getInstance().addOrder(new Order(
-                                adapter.getRef(viewHolder.getAdapterPosition()).getKey(),
+                                adapter.getRef(position).getKey(),
                                 model.getName(),
                                 "1",
                                 model.getPrice(),
@@ -253,6 +253,7 @@ public class FoodList extends AppCompatActivity {
                     }
                 });
 
+                viewHolder.btnFav.setImageResource(R.drawable.ic_delete_red);
                 viewHolder.btnFav.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -261,8 +262,8 @@ public class FoodList extends AppCompatActivity {
                                 .child(adapter.getRef(viewHolder.getAdapterPosition()).getKey())
                                 .child("favorites")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(true);
-                        Snackbar.make(relativeLayout, "Đã thêm "+ model.getName()+ " vào danh sách yêu thích",
+                                .removeValue();
+                        Snackbar.make(relativeLayout, "Đã xóa "+ model.getName(),
                                 Snackbar.LENGTH_SHORT)
                                 .show();
                     }

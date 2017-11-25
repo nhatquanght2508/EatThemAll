@@ -11,7 +11,7 @@ public class UserFirebase {
     private String name;
     private String address;
     private String imageUrl;
-    private ArrayList<Food> favorites;
+//    private ArrayList<Food> favorites;
 
 
     public String getPhone() {
@@ -46,11 +46,11 @@ public class UserFirebase {
         this.imageUrl = imageUrl;
     }
 
-    public ArrayList<Food> getFavorites() {
-        return favorites;
-    }
-
-    public void setFavorites(ArrayList<Food> favorites) {
-        this.favorites = favorites;
-    }
+//    public ArrayList<Food> getFavorites() {
+//        return favorites;
+//    }
+//
+//    public void setFavorites(ArrayList<Food> favorites) {
+//        this.favorites = favorites;
+//    }
 }
