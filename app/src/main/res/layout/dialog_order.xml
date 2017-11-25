@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radio_group"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_store"
+            android:checked="true"
+            android:text="Nhận tại cửa hàng"
+            android:textSize="15sp"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_address"
+            android:textSize="15sp"
+            android:visibility="gone"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_difference"
+            android:text="Khác"
+            android:textSize="15sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_difference"
+            android:textSize="15sp"
+            android:hint="Nhập địa chỉ giao hàng"
+            android:background="@drawable/bg_border_edittext"
+            android:enabled="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="4dp"
+            android:padding="7dp"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_marginTop="4dp">
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:id="@+id/btn_ok"
+            android:text="Đồng ý"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:id="@+id/txt_cancel"
+            android:text="Hủy"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -11,14 +11,16 @@ public class Request {
     private String phone;
     private String name;
     private String address;
-    private String total;
+    private long total;
     private String status;
+    private String dateTime;
+    private String uid;
     private List<Order> foods; // danh sach food ben order
 
     public Request() {
     }
 
-    public Request(String phone, String name, String address, String total, List<Order> foods) {
+    public Request(String phone, String name, String address, long total, List<Order> foods) {
         this.phone = phone;
         this.name = name;
         this.address = address;
@@ -59,11 +61,11 @@ public class Request {
         this.address = address;
     }
 
-    public String getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
@@ -73,5 +75,21 @@ public class Request {
 
     public void setFoods(List<Order> foods) {
         this.foods = foods;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

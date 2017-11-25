@@ -574,6 +574,9 @@ public class LocationFragment extends Fragment implements
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
+                        if( mLastLocation == null){
+                            return;
+                        }
                         // Getting URL to the Google Directions API
                         String url = getUrl(new LatLng(mLastLocation.getLatitude(),
                                         mLastLocation.getLongitude()),

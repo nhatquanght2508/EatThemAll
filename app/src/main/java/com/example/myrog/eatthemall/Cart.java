@@ -87,14 +87,14 @@ public class Cart extends AppCompatActivity {
         alertdialog.setPositiveButton("Đồng ý!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Request request = new Request(
-                        Common.currentUser.getPhone(),
-                        Common.currentUser.getTen(),
-                        editaddress.getText().toString(),
-                        txtTotalPrice.getText().toString(),
-                        cart
-                );
-                requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
+//                Request request = new Request(
+//                        Common.currentUser.getPhone(),
+//                        Common.currentUser.getTen(),
+//                        editaddress.getText().toString(),
+//                        txtTotalPrice.getText().toString(),
+//                        cart
+//                );
+//                requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
                 new Database(getBaseContext()).cleanCart();
                 Toast.makeText(Cart.this, "Cám ơn vì đã đặt hàng", Toast.LENGTH_SHORT).show();
                 finish();

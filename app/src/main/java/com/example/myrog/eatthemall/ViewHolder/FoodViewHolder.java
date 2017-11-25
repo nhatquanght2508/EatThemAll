@@ -19,6 +19,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public ImageView food_img;
     public TextView txtPrice;
     public FloatingActionButton btnCart;
+    public FloatingActionButton btnFav;
 
     private ItemClickListener itemClickListener;
 
@@ -33,8 +34,10 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         food_img = (ImageView) itemView.findViewById(R.id.food_image);
         txtPrice = (TextView) itemView.findViewById(R.id.txt_price);
         btnCart = (FloatingActionButton) itemView.findViewById(R.id.btn_cart);
+        btnFav = (FloatingActionButton) itemView.findViewById(R.id.btn_favorite);
 
         btnCart.setOnClickListener(this);
+        btnFav.setOnClickListener(this);
         itemView.setOnClickListener(this);
     }
 

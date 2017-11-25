@@ -1,9 +1,7 @@
 package com.example.myrog.eatthemall;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,16 +16,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.example.myrog.eatthemall.Database.Database;
 import com.example.myrog.eatthemall.Interface.ItemClickListener;
 import com.example.myrog.eatthemall.Model.Food;
 import com.example.myrog.eatthemall.Model.Order;
 import com.example.myrog.eatthemall.ViewHolder.FoodViewHolder;
 import com.example.myrog.eatthemall.manager.CartManager;
+import com.example.myrog.eatthemall.manager.UserManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -172,6 +170,21 @@ public class FoodList extends AppCompatActivity {
                     }
                 });
 
+                viewHolder.btnFav.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("favorites")
+                                .child(adapter.getRef(position).getKey())
+                                .setValue(model);
+                        Snackbar.make(relativeLayout, "Đã thêm "+ model.getName()+ " vào danh sách yêu thích",
+                                Snackbar.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+
                 final  Food local = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -235,6 +248,21 @@ public class FoodList extends AppCompatActivity {
                                 model.getDiscount()
                         ));
                         Snackbar.make(relativeLayout, "Đã thêm 1 "+ model.getName()+ " vào giỏ hàng",
+                                Snackbar.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+
+                viewHolder.btnFav.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("favorites")
+                                .child(adapter.getRef(position).getKey())
+                                .setValue(model);
+                        Snackbar.make(relativeLayout, "Đã thêm "+ model.getName()+ " vào danh sách yêu thích",
                                 Snackbar.LENGTH_SHORT)
                                 .show();
                     }

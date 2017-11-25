@@ -16,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myrog.eatthemall.manager.CartManager;
+import com.example.myrog.eatthemall.manager.UserManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -36,13 +41,20 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
+        addUserToDatabase();
+        UserManager.getInstance().getUserFromFirebase();
         categoryFragment = categoryFragment.newInstance();
         locationFragment = locationFragment.newInstance();
         settingFragment = settingFragment.newInstance();
         initView();
         //configToolbar();
 
+    }
+
+    private void addUserToDatabase() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        database.child("Users").child(user.getUid()).child("phone").setValue(user.getPhoneNumber());
     }
 
     private void configToolbar() {

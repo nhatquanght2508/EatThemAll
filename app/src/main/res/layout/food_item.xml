@@ -71,15 +71,28 @@
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_cart"
+        android:layout_above="@+id/layout_price"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        app:backgroundTint="@android:color/white"
+        app:srcCompat="@drawable/ic_cart_green"
+
+        app:fabSize="mini"/>
+
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_cart"
+            android:id="@+id/btn_favorite"
             android:layout_above="@+id/layout_price"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="30dp"
+            android:layout_toLeftOf="@+id/btn_cart"
             app:backgroundTint="@android:color/white"
-            app:srcCompat="@drawable/ic_cart_green"
+            app:srcCompat="@drawable/ic_heart"
 
             app:fabSize="mini"/>
 
